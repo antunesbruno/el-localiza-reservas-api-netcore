@@ -1,0 +1,18 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.1</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="AutoMapper" Version="9.0.0" />
+    <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="3.1.5" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\el.localiza.reservas.api.netcore.Application\el.localiza.reservas.api.netcore.Application.csproj" />
+    <ProjectReference Include="..\el.localiza.reservas.api.netcore.Domain\el.localiza.reservas.api.netcore.Domain.csproj" />
+    <ProjectReference Include="..\el.localiza.reservas.api.netcore.Infrastructure\el.localiza.reservas.api.netcore.Infrastructure.csproj" />
+  </ItemGroup>
+
+</Project>
