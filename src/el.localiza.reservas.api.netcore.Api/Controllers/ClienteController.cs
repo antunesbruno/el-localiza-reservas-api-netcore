@@ -50,19 +50,7 @@ namespace el.localiza.reservas.api.netcore.Api.Controllers
             var cliente = _clienteRepository.ListarTodos();
 
             return Ok(_mapper.Map<IEnumerable<Cliente>, IEnumerable<ClienteModel>>(cliente));
-        }
-
-        [HttpGet]
-        [Route("listar/{id}")]
-        [ProducesResponseType(typeof(IEnumerable<ClienteModel>), StatusCodes.Status200OK)]
-        [ProducesResponseType(typeof(ErrorModel), StatusCodes.Status400BadRequest)]
-        [ProducesResponseType(typeof(ErrorModel), StatusCodes.Status500InternalServerError)]
-        public IActionResult ListById(Guid id)
-        {
-            var cliente = _clienteRepository.ListarTodos();
-
-            return Ok(_mapper.Map<IEnumerable<Cliente>, IEnumerable<ClienteModel>>(cliente));
-        }
+        }       
 
         [HttpPost]
         [ProducesResponseType(typeof(ClienteModel), StatusCodes.Status201Created)]
