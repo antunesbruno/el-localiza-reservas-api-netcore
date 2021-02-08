@@ -24,7 +24,7 @@ namespace el.localiza.reservas.api.netcore.CrossCutting.IoC
 
         private static void RegisterRepositories(IServiceCollection services)
         {
-            //services.AddScoped<IClienteRepository, ClienteRepository>();
+            services.AddScoped<IUsuarioRepository, UsuarioRepository>();
         }
     }
 }

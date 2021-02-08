@@ -12,9 +12,17 @@
       "commandName": "IISExpress",
       "launchBrowser": true,
       "environmentVariables": {
-        "ASPNETCORE_ENVIRONMENT": "Development"
-      }
-    },
+        "ASPNETCORE_ENVIRONMENT": "Development",
+
+        //Desenvolvimento
+        "EL_RESERVAS_SQL_USR": "root",
+        "EL_RESERVAS_SQL_PWD": "",
+        "EL_RESERVAS_CONNECTION_STRING": "Server=localhost; Database=db_reservas_desafio; Uid=root; DefaultCommandTimeout=60; Allow User Variables=true"
+
+        //SQLSERVER
+        //"EL_RESERVAS_CONNECTION_STRING": "Server=localhost;Database=db_reservas_el;Uid={0};Pwd={1}",
+      },
+
     "el.localiza.reservas.api.netcore.Api": {
       "commandName": "Project",
       "launchBrowser": true,

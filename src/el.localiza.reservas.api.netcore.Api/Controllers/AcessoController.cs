@@ -1,12 +1,11 @@
 ﻿using AutoMapper;
 using el.localiza.reservas.api.netcore.Application.Interfaces;
 using el.localiza.reservas.api.netcore.Application.Models;
-using el.localiza.reservas.api.netcore.Domain.Repositories;
+using el.localiza.reservas.api.netcore.Domain.Entities;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Serilog;
 using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 
 namespace el.localiza.reservas.api.netcore.Api.Controllers
@@ -17,38 +16,43 @@ namespace el.localiza.reservas.api.netcore.Api.Controllers
     {
         private readonly IMapper _mapper;
         private readonly IAcessoApplication _acessoApplication;
-        private readonly IAcessoRepository _acessoRepository;
 
-        public AcessoController(IMapper mapper, IAcessoApplication acessoApplication, IAcessoRepository acessoRepository)
+        public AcessoController(IMapper mapper, IAcessoApplication acessoApplication)
         {
             _mapper = mapper;
-            _acessoApplication = acessoApplication;
-            _acessoRepository = acessoRepository;
+            _acessoApplication = acessoApplication;         
         }
 
-        //[HttpPost]
-        //[ProducesResponseType(typeof(LoginModel), StatusCodes.Status201Created)]
-        //[ProducesResponseType(typeof(ErrorModel), StatusCodes.Status400BadRequest)]
-        //[ProducesResponseType(typeof(ErrorModel), StatusCodes.Status500InternalServerError)]
-        //public async Task<IActionResult> ValidaAcessoUsuario([FromBody] LoginModel loginModel)
-        //{
-        //    //TODO: validar os dados de acesso
-        //    var dadosValidos = _acessoApplication.ValidarDadosAcesso(loginModel);
+        /// <summary>
+        /// Valida os dados de acesso do Usuario
+        /// </summary>
+        /// <param name="loginModel">Modelo contendo o login e a senha</param>
+        /// <returns>Se OK, retorna os dados do usuário, senão retorna as notificações</returns>
+        [HttpPost]
+        [ProducesResponseType(typeof(LoginModel), StatusCodes.Status201Created)]
+        [ProducesResponseType(typeof(ErrorModel), StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(typeof(ErrorModel), StatusCodes.Status500InternalServerError)]
+        public async Task<IActionResult> ValidaAcessoUsuario([FromBody] LoginModel loginModel)
+        {
+            try
+            {
+                //valida os dados de acesso
+                var dadosValidos = await _acessoApplication.ValidarDadosAcesso(loginModel);
 
-        //    if(dadosValidos.Success)
-        //    {
-        //        //TODO: verifica na base o usuário e senha
+                if (dadosValidos.Success)
+                    return Ok(_mapper.Map<Usuario, UsuarioModel>(dadosValidos.Object));
 
-        //        //StatusCode-404
-        //        return NotFound(dadosValidos.Notifications);
-        //    }
+                //StatusCode-404
+                return NotFound(dadosValidos.Notifications);
+            }
+            catch (Exception ex)
+            {
+                //adiciona o log
+                Log.Logger.Error(ex, "AcessoController > ValidaAcessoUsuario - Erro Interno");
 
-        //    //var result = _clienteApplication.Salvar(clienteModel);
-
-        //    //if (result.Success)
-        //    //    return Created($"/clientes/{result.Object.Id}", _mapper.Map<Cliente, LoginModel>(result.Object));
-
-        //    return BadRequest(dadosValidos.Notifications);
-        //}
+                //StatusCode-500
+                return InternalServerError();
+            }
+        }
     }
 }

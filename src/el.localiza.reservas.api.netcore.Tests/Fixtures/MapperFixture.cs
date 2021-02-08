@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using el.localiza.reservas.api.netcore.Application.Mapping;
 
 namespace el.localiza.reservas.api.netcore.Tests.Fixtures
 {
@@ -10,7 +11,8 @@ namespace el.localiza.reservas.api.netcore.Tests.Fixtures
         {
             var config = new MapperConfiguration(opts =>
             {
-                opts.AddProfile(new Application.Mapping.ClienteMap());
+                opts.AddProfile(new ClienteMap());
+                opts.AddProfile(new UsuarioMap());
             });
 
             Mapper = config.CreateMapper();

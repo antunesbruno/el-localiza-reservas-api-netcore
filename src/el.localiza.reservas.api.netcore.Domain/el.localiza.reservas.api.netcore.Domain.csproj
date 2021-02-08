@@ -5,6 +5,10 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.Cryptography.KeyDerivation" Version="3.1.7" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\el.localiza.reservas.api.netcore.Domain.Core\el.localiza.reservas.api.netcore.Domain.Core.csproj" />
   </ItemGroup>
 

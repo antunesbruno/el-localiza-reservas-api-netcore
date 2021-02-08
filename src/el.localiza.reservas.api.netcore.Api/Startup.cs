@@ -12,6 +12,8 @@ using el.localiza.reservas.api.netcore.CrossCutting.IoC;
 using System;
 using System.Diagnostics.CodeAnalysis;
 using System.IO;
+using el.localiza.reservas.api.netcore.Infrastructure.Database;
+using Microsoft.EntityFrameworkCore;
 
 namespace el.localiza.reservas.api.netcore.Api
 {
@@ -56,6 +58,12 @@ namespace el.localiza.reservas.api.netcore.Api
                 c.IncludeXmlComments(apiPath);
                 c.IncludeXmlComments(applicationPath);
             });
+
+            //Database - Sqlserver
+            services.AddDbContext<DatabaseContext>(options =>
+                options.UseMySql(string.Format(Environment.GetEnvironmentVariable("EL_RESERVAS_CONNECTION_STRING"),
+                Environment.GetEnvironmentVariable("EL_RESERVAS_SQL_USR"),
+                Environment.GetEnvironmentVariable("EL_RESERVAS_SQL_PWD"))));
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
