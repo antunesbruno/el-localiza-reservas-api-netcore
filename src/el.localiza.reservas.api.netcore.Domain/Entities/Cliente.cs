@@ -30,38 +30,12 @@ namespace el.localiza.reservas.api.netcore.Domain.Entities
                 AddNotifications(Email);
         }
 
-        public Cliente(Nome nome, CPF cpf, Email email, string segmento)
-            : this(nome, cpf, email)
-        {
-            AlterarSegmento(segmento);
-        }
-
         public Nome Nome { get; private set; }
         public CPF Cpf { get; private set; }
         public Telefone Telefone { get; private set; }
         public Email Email { get; private set; }
-        public string Segmento { get; private set; }
+        public DateTime DataNascimento { get; private set; }
         public DateTime DataCriacao { get; private set; }
-
-        public void InformarOuAlterarTelefone(Telefone telefone)
-        {
-            Telefone = telefone;
-
-            if (Telefone != null)
-                AddNotifications(telefone);
-        }
-
-        public void AlterarSegmento(string segmento)
-        {
-            Segmento = segmento;
-
-            if (Segmento == null)
-                return;
-
-            AddNotifications(new Contract()
-                .Requires()
-                .HasLen(Segmento, 6, nameof(Segmento), "Segmento deve conter 6 posições")
-                .Matchs(Segmento, "^[a-zA-Z]{3}[0-9]{3}$", nameof(Segmento), "Segmento está fora do padrão de nomenclatura"));
-        }
+        public Endereco Endereco { get; private set; }      
     }
 }
