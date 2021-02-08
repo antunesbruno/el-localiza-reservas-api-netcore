@@ -17,19 +17,20 @@
         //Desenvolvimento
         "EL_RESERVAS_SQL_USR": "root",
         "EL_RESERVAS_SQL_PWD": "",
-        "EL_RESERVAS_CONNECTION_STRING": "Server=localhost; Database=db_reservas_desafio; Uid=root; DefaultCommandTimeout=60; Allow User Variables=true"
+        "EL_RESERVAS_CONNECTION_STRING": "Server=localhost; Database=db_reservas_desafio; Uid={0}; DefaultCommandTimeout=60; Allow User Variables=true"
 
         //SQLSERVER
         //"EL_RESERVAS_CONNECTION_STRING": "Server=localhost;Database=db_reservas_el;Uid={0};Pwd={1}",
       },
 
-    "el.localiza.reservas.api.netcore.Api": {
-      "commandName": "Project",
-      "launchBrowser": true,
-      "environmentVariables": {
-        "ASPNETCORE_ENVIRONMENT": "Development"
-      },
-      "applicationUrl": "https://localhost:5001;http://localhost:5000"
+      "el.localiza.reservas.api.netcore.Api": {
+        "commandName": "Project",
+        "launchBrowser": true,
+        "environmentVariables": {
+          "ASPNETCORE_ENVIRONMENT": "Development"
+        },
+        "applicationUrl": "https://localhost:5001;http://localhost:5000"
+      }
     }
   }
 }

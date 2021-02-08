@@ -5,6 +5,8 @@ namespace el.localiza.reservas.api.netcore.Domain.ValueObjects
 {
     public class Nome : ValueObject
     {
+        public Nome() { }
+
         public Nome(string nomeUsuario)
         {
             PrimeiroNome = nomeUsuario;

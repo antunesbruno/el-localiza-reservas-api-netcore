@@ -7,6 +7,8 @@ namespace el.localiza.reservas.api.netcore.Domain.Entities
 {
     public class Cliente : Entity, IAggregateRoot
     {
+        public Cliente() { }
+
         public Cliente(Nome nome, CPF cpf, Email email)
         {
             Nome = nome;

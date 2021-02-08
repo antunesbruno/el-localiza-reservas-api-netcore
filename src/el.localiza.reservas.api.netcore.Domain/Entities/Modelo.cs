@@ -6,6 +6,11 @@ namespace el.localiza.reservas.api.netcore.Domain.Entities
 {
     public class Modelo : Entity, IAggregateRoot
     {
+        public Modelo()
+        {
+
+        }
+
         public Modelo(string nome, Marca marca)
         {
             Nome = nome;

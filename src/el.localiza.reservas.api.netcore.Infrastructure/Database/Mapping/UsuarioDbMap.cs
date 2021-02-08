@@ -12,9 +12,6 @@ namespace el.localiza.reservas.api.netcore.Infrastructure.Database.Mapping
         {
             builder.ToTable("el_usuario");
 
-            builder.HasKey(c => c.Id)
-                .HasName("pk_el_usuario");
-
             builder.Property(c => c.Id)
                  .IsRequired()
                  .HasColumnName("id_usuario");
@@ -45,10 +42,7 @@ namespace el.localiza.reservas.api.netcore.Infrastructure.Database.Mapping
                     .HasColumnName("nom_usuario")
                     .HasDefaultValue(null);
 
-                a.Property(p => p.Sobrenome)
-                    .HasColumnName("nom_sobrenome_usuario")
-                    .HasDefaultValue(null);
-
+                a.Ignore(p => p.Sobrenome);
                 a.Ignore(p => p.Notifications);
                 a.Ignore(p => p.Invalid);
                 a.Ignore(p => p.Valid);
@@ -65,10 +59,13 @@ namespace el.localiza.reservas.api.netcore.Infrastructure.Database.Mapping
                 a.Ignore(p => p.Valid);
             });         
 
-            builder.Property(c => c.DataCriacao)
-                .HasColumnName("dt_criacao");
+            builder.Property(c => c.Perfil)
+                .HasColumnName("idc_perfil");
 
-            builder.Ignore(p => p.Notifications);
+            builder.Property(c => c.DataCriacao)
+               .HasColumnName("dt_criacao");        
+
+        builder.Ignore(p => p.Notifications);
             builder.Ignore(p => p.Invalid);
             builder.Ignore(p => p.Valid);
         }

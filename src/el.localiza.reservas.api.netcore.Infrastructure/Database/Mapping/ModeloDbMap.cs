@@ -12,9 +12,6 @@ namespace el.localiza.reservas.api.netcore.Infrastructure.Database.Mapping
         {
             builder.ToTable("el_veiculo_modelo");
 
-            builder.HasKey(c => c.Id)
-                .HasName("pk_el_veiculo_modelo");
-
             builder.Property(c => c.Id)
                  .IsRequired()
                  .HasColumnName("id_veiculo_modelo");

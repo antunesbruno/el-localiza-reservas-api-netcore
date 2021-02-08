@@ -22,7 +22,7 @@ namespace el.localiza.reservas.api.netcore.Infrastructure.Database
             modelBuilder.Entity<Usuario>(new UsuarioDbMap().Configure);
             modelBuilder.Entity<Veiculo>(new VeiculoDbMap().Configure);
 
-            modelBuilder.Ignore<Notification>();
+            modelBuilder.Ignore<Notification>();            
 
             base.OnModelCreating(modelBuilder);
         }

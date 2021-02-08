@@ -7,6 +7,10 @@ namespace el.localiza.reservas.api.netcore.Domain.Entities
 {
     public class Veiculo : Entity, IAggregateRoot
     {
+        public Veiculo()
+        {
+
+        }
         public Veiculo(string placa, Guid marca, Guid modelo, int ano, double valorHora, CombustivelEnum combustivel, int limitePortaMalas, CategoriaEnum categoria)
         {
             Placa = placa;

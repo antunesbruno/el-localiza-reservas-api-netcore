@@ -12,9 +12,6 @@ namespace el.localiza.reservas.api.netcore.Infrastructure.Database.Mapping
         {          
             builder.ToTable("el_cliente");
 
-            builder.HasKey(c => c.Id)
-                .HasName("pk_el_cliente");
-
             builder.Property(c => c.Id)
                  .IsRequired()
                  .HasColumnName("id_cliente");
@@ -49,6 +46,21 @@ namespace el.localiza.reservas.api.netcore.Infrastructure.Database.Mapping
             {
                 a.Property(p => p.Endereco)
                     .HasColumnName("email_cliente")
+                    .HasDefaultValue(null);
+
+                a.Ignore(p => p.Notifications);
+                a.Ignore(p => p.Invalid);
+                a.Ignore(p => p.Valid);
+            });
+
+            builder.OwnsOne(m => m.Telefone, a =>
+            {
+                a.Property(p => p.Numero)
+                    .HasColumnName("num_telefone")
+                    .HasDefaultValue(null);
+
+                a.Property(p => p.Ddd)
+                    .HasColumnName("num_telefone_ddd")
                     .HasDefaultValue(null);
 
                 a.Ignore(p => p.Notifications);
