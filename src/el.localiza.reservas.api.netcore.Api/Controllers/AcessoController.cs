@@ -11,7 +11,7 @@ using System.Threading.Tasks;
 namespace el.localiza.reservas.api.netcore.Api.Controllers
 {
     [ApiController]
-    [Route("acesso")]
+    [Route("acessos")]
     public class AcessoController : ApiBaseController
     {
         private readonly IMapper _mapper;

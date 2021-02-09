@@ -8,12 +8,7 @@ namespace el.localiza.reservas.api.netcore.Domain.Entities
 {
     public class Usuario : Entity, IAggregateRoot
     {
-        public Usuario()
-        {
-            AddNotifications(new Contract()
-                .Requires()
-                .IsNotNull(Login, nameof(Login), "Usuario não encontrado !"));
-        }
+        public Usuario() { }
 
         public Usuario(string login, string senha, Nome nome, CPF cpf, Email email, PerfilUsuarioEnum perfil)
         {

@@ -19,6 +19,8 @@ namespace el.localiza.reservas.api.netcore.CrossCutting.IoC
         private static void RegisterApplications(IServiceCollection services)
         {
             services.AddScoped<IAcessoApplication, AcessoApplication>();
+            services.AddScoped<IUsuarioApplication, UsuarioApplication>();
+            
         }
 
         private static void RegisterRepositories(IServiceCollection services)

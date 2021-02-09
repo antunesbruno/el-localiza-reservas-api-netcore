@@ -106,9 +106,12 @@ namespace el.localiza.reservas.api.netcore.Tests.Controllers
         {
             var loginModel = new LoginModel() { Usuario = usuario, Senha = senha };
 
+            var usuarioError = new Usuario();
+            usuarioError.AddNotification("404", "Usuário Invalido");
+
             //setup
             _mockAcessoApplication.Setup(x => x.ValidarDadosAcesso(loginModel))
-                .ReturnsAsync(Result<Usuario>.Error(new Usuario().Notifications));
+                .ReturnsAsync(Result<Usuario>.Error(usuarioError.Notifications));
 
             //controller
             var acessoController = new AcessoController(_mapperFixture.Mapper, _mockAcessoApplication.Object);
