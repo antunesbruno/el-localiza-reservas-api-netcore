@@ -9,6 +9,8 @@ namespace el.localiza.reservas.api.netcore.Domain.Enums
         Gasolina = 0,
         Etanol = 1,
         Diesel = 2,
-        GNV = 3
+        GNV = 3,
+        Flex = 4
     }
 }
+

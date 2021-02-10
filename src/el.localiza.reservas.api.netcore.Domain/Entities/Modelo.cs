@@ -11,10 +11,12 @@ namespace el.localiza.reservas.api.netcore.Domain.Entities
 
         }
 
-        public Modelo(string nome, Marca marca)
+        public Modelo(string nome, string marca, string imagePath)
         {
             Nome = nome;
-            Marca = marca;
+            MarcaId = Guid.Parse(marca);
+            ImagePath = imagePath;
+            DataCriacao = DateTime.Now;
 
             AddNotifications(new Contract()
                 .Requires()
@@ -27,6 +29,7 @@ namespace el.localiza.reservas.api.netcore.Domain.Entities
         public string Nome { get; private set; }
         public Guid MarcaId { get; private set; }        
         public DateTime DataCriacao { get; private set; }
+        public string ImagePath { get; set; }
 
         public Marca Marca { get; private set; }
     }

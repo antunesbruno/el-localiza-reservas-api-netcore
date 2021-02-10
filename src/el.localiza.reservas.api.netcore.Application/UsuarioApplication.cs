@@ -22,6 +22,11 @@ namespace el.localiza.reservas.api.netcore.Application
             _usuarioRepository = usuarioRepository;
         }
 
+        /// <summary>
+        /// Obtem os usuarios pelo perfil
+        /// </summary>
+        /// <param name="perfil">Codigo do perfil</param>
+        /// <returns></returns>
         public async Task<Result<IList<Usuario>>> ObterListaPorPerfilAsync(PerfilUsuarioEnum perfil)
         {
             var usuarios = await _usuarioRepository.ObterListaPorPerfil(perfil);
@@ -32,7 +37,12 @@ namespace el.localiza.reservas.api.netcore.Application
             return Result<IList<Usuario>>.Ok(null);
         }
 
-        public async Task<Result<Usuario>> Salvar(UsuarioModel usuarioModel)
+        /// <summary>
+        /// Salva um novo usuario
+        /// </summary>
+        /// <param name="usuarioModel"></param>
+        /// <returns></returns>
+        public async Task<Result<Usuario>> SalvarAsync(UsuarioModel usuarioModel)
         {
             var usuario = _mapper.Map<UsuarioModel, Usuario>(usuarioModel);
 
@@ -45,7 +55,12 @@ namespace el.localiza.reservas.api.netcore.Application
             return Result<Usuario>.Error(usuario.Notifications);
         }
 
-        public async Task<bool> Atualizar(UsuarioModel usuarioModel)
+        /// <summary>
+        /// Atualiza um usuario existente
+        /// </summary>
+        /// <param name="usuarioModel"></param>
+        /// <returns></returns>
+        public async Task<bool> AtualizarAsync(UsuarioModel usuarioModel)
         {
             var usuario = _mapper.Map<UsuarioModel, Usuario>(usuarioModel);
 
@@ -58,7 +73,12 @@ namespace el.localiza.reservas.api.netcore.Application
             return false;
         }
 
-        public async Task<bool> Excluir(Guid usuarioId)
+        /// <summary>
+        /// Exclui um usuario existente
+        /// </summary>
+        /// <param name="usuarioId"></param>
+        /// <returns></returns>
+        public async Task<bool> ExcluirAsync(Guid usuarioId)
         {
             await _usuarioRepository.Excluir(usuarioId);
 

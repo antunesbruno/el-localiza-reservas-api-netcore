@@ -21,6 +21,7 @@ namespace el.localiza.reservas.api.netcore.Domain.Entities
             Combustivel = combustivel;
             LimitePortaMalas = limitePortaMalas;
             Categoria = categoria;
+            DataCriacao = DateTime.Now;
 
             AddNotifications(new Contract()
                 .Requires()

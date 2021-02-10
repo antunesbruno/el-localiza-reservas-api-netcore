@@ -70,7 +70,7 @@ namespace el.localiza.reservas.api.netcore.Api.Controllers
         {
             try
             {
-                var result = await _usuarioApplication.Salvar(usuarioModel);
+                var result = await _usuarioApplication.SalvarAsync(usuarioModel);
 
                 if (result.Success)
                     return Created($"/usuario/{result.Object.Id}", _mapper.Map<Usuario, UsuarioModel>(result.Object));
@@ -101,7 +101,7 @@ namespace el.localiza.reservas.api.netcore.Api.Controllers
         {
             try
             {
-                var resultOk = await _usuarioApplication.Atualizar(usuarioModel);
+                var resultOk = await _usuarioApplication.AtualizarAsync(usuarioModel);
 
                 if (resultOk)
                     return Ok(usuarioModel);
@@ -131,7 +131,7 @@ namespace el.localiza.reservas.api.netcore.Api.Controllers
         {
             try
             {
-                var resultOk = await _usuarioApplication.Excluir(usuarioId);
+                var resultOk = await _usuarioApplication.ExcluirAsync(usuarioId);
 
                 if (resultOk)
                     return Ok($"O usuário com o Identificador: {usuarioId} foi excluído com sucesso !");

@@ -10,8 +10,8 @@ namespace el.localiza.reservas.api.netcore.Application.Interfaces
     public interface IUsuarioApplication
     {
         Task<Result<IList<Usuario>>> ObterListaPorPerfilAsync(PerfilUsuarioEnum perfil);
-        Task<Result<Usuario>> Salvar(UsuarioModel usuarioModel);
-        Task<bool> Atualizar(UsuarioModel usuarioModel);
-        Task<bool> Excluir(Guid usuarioId);
+        Task<Result<Usuario>> SalvarAsync(UsuarioModel usuarioModel);
+        Task<bool> AtualizarAsync(UsuarioModel usuarioModel);
+        Task<bool> ExcluirAsync(Guid usuarioId);
     }
 }

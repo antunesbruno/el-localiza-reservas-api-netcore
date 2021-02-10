@@ -11,6 +11,7 @@ namespace el.localiza.reservas.api.netcore.Domain.Entities
         public Marca(string nome)
         {
             Nome = nome;
+            DataCriacao = DateTime.Now;
 
             AddNotifications(new Contract()
                 .Requires()

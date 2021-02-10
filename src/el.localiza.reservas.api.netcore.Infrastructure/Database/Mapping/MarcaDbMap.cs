@@ -14,7 +14,7 @@ namespace el.localiza.reservas.api.netcore.Infrastructure.Database.Mapping
 
             builder.Property(c => c.Id)
                  .IsRequired()
-                 .HasColumnName("id_veiculo_marca");
+                 .HasColumnName("id_marca");
 
             builder.Property(c => c.Nome)
                 .HasColumnName("nom_marca");
