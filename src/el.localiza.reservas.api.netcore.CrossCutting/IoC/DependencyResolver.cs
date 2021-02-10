@@ -20,11 +20,19 @@ namespace el.localiza.reservas.api.netcore.CrossCutting.IoC
         {
             services.AddScoped<IAcessoApplication, AcessoApplication>();
             services.AddScoped<IUsuarioApplication, UsuarioApplication>();
-            
+            services.AddScoped<IVeiculoApplication, VeiculoApplication>();
+            services.AddScoped<IMarcaApplication, MarcaApplication>();
+            services.AddScoped<IModeloApplication, ModeloApplication>();
+            services.AddScoped<IClienteApplication, ClienteApplication>();
+
         }
 
         private static void RegisterRepositories(IServiceCollection services)
         {
+            services.AddScoped<IMarcaRepository, MarcaRepository>();
+            services.AddScoped<IClienteRepository, ClienteRepository>();
+            services.AddScoped<IModeloRepository, ModeloRepository>();
+            services.AddScoped<IVeiculoRepository, VeiculoRepository>();
             services.AddScoped<IUsuarioRepository, UsuarioRepository>();
         }
     }
