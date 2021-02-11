@@ -1,9 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using System.Text;
 
 namespace el.localiza.reservas.api.netcore.Application.Models
 {
+    [ExcludeFromCodeCoverage]
     public class ModeloModel
     {
         public Guid ModeloId { get; set; }

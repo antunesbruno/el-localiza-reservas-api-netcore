@@ -47,9 +47,7 @@ namespace el.localiza.reservas.api.netcore.Domain.Entities
             AddNotifications(new Contract()
                 .Requires()
                 .IsNotNullOrWhiteSpace(Login, nameof(Login), "Login não pode ser nulo")
-                .IsNotNullOrWhiteSpace(Senha, nameof(Senha), "Senha não pode ser nulo")
-                .HasLen(Matricula, 6, nameof(Matricula), "Matrícula inválida")
-                .IsDigit(Matricula, nameof(Matricula), "Matricula deve conter apenas números"));
+                .IsNotNullOrWhiteSpace(Senha, nameof(Senha), "Senha não pode ser nulo"));
 
             if (Nome != null)
                 AddNotifications(Nome);
@@ -65,6 +63,6 @@ namespace el.localiza.reservas.api.netcore.Domain.Entities
         public Nome Nome { get; private set; }
         public Email Email { get; private set; }
         public PerfilUsuarioEnum Perfil { get; private set; }
-        public DateTime DataCriacao { get; private set; }
+        public DateTime DataCriacao { get; set; }
     }
 }

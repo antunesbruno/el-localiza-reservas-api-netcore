@@ -19,11 +19,6 @@ namespace el.localiza.reservas.api.netcore.Infrastructure.Database.Mapping
             builder.Property(c => c.Nome)
                 .HasColumnName("nom_modelo");
 
-            //builder.HasOne(x => x.Marca)
-            //   .WithMany()
-            //   .HasForeignKey(c => c.MarcaId)
-            //   .HasConstraintName("fk_veiculo_marca_mod");
-
             builder.Property(c => c.MarcaId)
                 .HasColumnName("id_marca");
 

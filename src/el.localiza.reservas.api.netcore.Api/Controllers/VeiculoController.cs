@@ -12,6 +12,8 @@ using System.Threading.Tasks;
 
 namespace el.localiza.reservas.api.netcore.Api.Controllers
 {
+    [Route("veiculos")]
+    [ApiController]
     public class VeiculoController : ApiBaseController
     {
         private readonly IMapper _mapper;
@@ -36,10 +38,10 @@ namespace el.localiza.reservas.api.netcore.Api.Controllers
         {
             try
             {
-                var usuarios = await _veiculoApplication.ObterVeiculosPorCategoriaAsync(categoria);
+                var veiculos = await _veiculoApplication.ObterVeiculosPorCategoriaAsync(categoria);
 
-                if (usuarios.Success)
-                    return Ok(_mapper.Map<IEnumerable<Veiculo>, IEnumerable<VeiculoModel>>(usuarios.Object));
+                if (veiculos.Success)
+                    return Ok(_mapper.Map<IEnumerable<Veiculo>, IEnumerable<VeiculoModel>>(veiculos.Object));
 
                 return NotFound("Veiculos não encontrados para a Categoria !");
             }
@@ -47,6 +49,32 @@ namespace el.localiza.reservas.api.netcore.Api.Controllers
             {
                 //adiciona o log
                 Log.Logger.Error(ex, "VeiculoController > ObterVeiculosPorCategoria - Erro Interno");
+
+                //StatusCode-500
+                return InternalServerError();
+            }
+        }
+
+        [HttpGet]
+        [Route("{idVeiculo}")]
+        [ProducesResponseType(typeof(VeiculoModel), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(string), StatusCodes.Status204NoContent)]
+        [ProducesResponseType(typeof(string), StatusCodes.Status500InternalServerError)]
+        public async Task<IActionResult> ObterVeiculoPorId(string idVeiculo)
+        {
+            try
+            {
+                var veiculo = await _veiculoApplication.ObterVeiculoPorIdAsync(idVeiculo);
+
+                if (veiculo.Success)
+                    return Ok(_mapper.Map<Veiculo, VeiculoModel>(veiculo.Object));
+
+                return NotFound("Veiculos não encontrado !");
+            }
+            catch (Exception ex)
+            {
+                //adiciona o log
+                Log.Logger.Error(ex, "VeiculoController > ObterVeiculoPorId - Erro Interno");
 
                 //StatusCode-500
                 return InternalServerError();
@@ -63,7 +91,7 @@ namespace el.localiza.reservas.api.netcore.Api.Controllers
         [ProducesResponseType(typeof(VeiculoModel), StatusCodes.Status201Created)]
         [ProducesResponseType(typeof(ErrorModel), StatusCodes.Status400BadRequest)]
         [ProducesResponseType(typeof(ErrorModel), StatusCodes.Status500InternalServerError)]
-        public async Task<IActionResult> CriarVeiculo([FromBody] VeiculoModel veiculoModel)
+        public async Task<IActionResult> CriarVeiculo([FromBody] VeiculoModelRequest veiculoModel)
         {
             try
             {

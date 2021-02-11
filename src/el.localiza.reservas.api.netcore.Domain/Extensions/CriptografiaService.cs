@@ -1,11 +1,13 @@
 ﻿using Microsoft.AspNetCore.Cryptography.KeyDerivation;
 using System;
+using System.Diagnostics.CodeAnalysis;
 using System.Security.Cryptography;
 using System.Text;
 
 namespace el.localiza.reservas.api.netcore.Domain.Extensions
 {
-    public class CriptografiaService
+	[ExcludeFromCodeCoverage]
+	public class CriptografiaService
     {
 		public static string Create(string value, string salt)
 		{

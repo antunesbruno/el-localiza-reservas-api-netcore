@@ -48,6 +48,8 @@ namespace el.localiza.reservas.api.netcore.Application
 
             if (usuario.Valid)
             {
+                usuario.DataCriacao = DateTime.Now;
+
                 await _usuarioRepository.Incluir(usuario);
                 return Result<Usuario>.Ok(usuario);
             }

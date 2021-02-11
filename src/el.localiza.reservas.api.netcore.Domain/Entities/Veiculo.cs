@@ -11,11 +11,11 @@ namespace el.localiza.reservas.api.netcore.Domain.Entities
         {
 
         }
-        public Veiculo(string placa, Guid marca, Guid modelo, int ano, double valorHora, CombustivelEnum combustivel, int limitePortaMalas, CategoriaEnum categoria)
+        public Veiculo(string placa, string marca, string modelo, int ano, double valorHora, CombustivelEnum combustivel, int limitePortaMalas, CategoriaEnum categoria)
         {
             Placa = placa;
-            MarcaId = marca;
-            ModeloId = modelo;
+            MarcaId = Guid.Parse(marca);
+            ModeloId = Guid.Parse(modelo);
             Ano = ano;
             ValorHora = valorHora;
             Combustivel = combustivel;
@@ -41,7 +41,7 @@ namespace el.localiza.reservas.api.netcore.Domain.Entities
         public CombustivelEnum Combustivel { get; private set; }
         public int LimitePortaMalas { get; private set; }
         public CategoriaEnum Categoria { get; private set; }
-        public DateTime DataCriacao { get; private set; }
+        public DateTime DataCriacao { get; set; }
 
         public Marca Marca { get; private set; }
         public Modelo Modelo { get; private set; }

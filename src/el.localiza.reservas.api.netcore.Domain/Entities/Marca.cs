@@ -20,6 +20,6 @@ namespace el.localiza.reservas.api.netcore.Domain.Entities
 
 
         public string Nome { get; private set; }
-        public DateTime DataCriacao { get; private set; }
+        public DateTime DataCriacao { get; set; }
     }
 }

@@ -4,11 +4,13 @@ using el.localiza.reservas.api.netcore.Domain.Repositories;
 using el.localiza.reservas.api.netcore.Infrastructure.Database;
 using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Threading.Tasks;
 
 namespace el.localiza.reservas.api.netcore.Infrastructure.Repositories
 {
+    [ExcludeFromCodeCoverage]
     public class UsuarioRepository : BaseRepository<Usuario>, IUsuarioRepository
     {
         protected readonly DatabaseContext _context;
@@ -36,7 +38,7 @@ namespace el.localiza.reservas.api.netcore.Infrastructure.Repositories
         /// <returns></returns>
         public async Task<IEnumerable<Usuario>> ObterListaPorPerfil(PerfilUsuarioEnum perfil)
         {
-            return await _context.Set<Usuario>().Where(x => x.Perfil.Equals((int)perfil)).ToListAsync();
+            return await _context.Set<Usuario>().Where(x => ((int)x.Perfil) == (int)perfil).ToListAsync();
         }
     }
 }

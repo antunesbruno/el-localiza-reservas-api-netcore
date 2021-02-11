@@ -8,6 +8,7 @@ namespace el.localiza.reservas.api.netcore.Domain.Repositories
 {
     public interface IVeiculoRepository : IRepository<Veiculo>
     {
+        Task<Veiculo> ObterVeiculoPorId(Guid veiculoId);
         Task<IEnumerable<Veiculo>> ObterListaPorCategoria(int categoria);
     }
 }

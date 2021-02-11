@@ -28,7 +28,7 @@ namespace el.localiza.reservas.api.netcore.Domain.Entities
 
         public string Nome { get; private set; }
         public Guid MarcaId { get; private set; }        
-        public DateTime DataCriacao { get; private set; }
+        public DateTime DataCriacao { get; set; }
         public string ImagePath { get; set; }
 
         public Marca Marca { get; private set; }

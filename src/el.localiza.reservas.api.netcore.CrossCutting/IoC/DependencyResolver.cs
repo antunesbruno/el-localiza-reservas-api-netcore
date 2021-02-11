@@ -23,7 +23,8 @@ namespace el.localiza.reservas.api.netcore.CrossCutting.IoC
             services.AddScoped<IVeiculoApplication, VeiculoApplication>();
             services.AddScoped<IMarcaApplication, MarcaApplication>();
             services.AddScoped<IModeloApplication, ModeloApplication>();
-            services.AddScoped<IClienteApplication, ClienteApplication>();
+            services.AddScoped<IClienteApplication, ClienteApplication>();            
+            services.AddScoped<IReservaApplication, ReservaApplication>();
 
         }
 
@@ -34,6 +35,8 @@ namespace el.localiza.reservas.api.netcore.CrossCutting.IoC
             services.AddScoped<IModeloRepository, ModeloRepository>();
             services.AddScoped<IVeiculoRepository, VeiculoRepository>();
             services.AddScoped<IUsuarioRepository, UsuarioRepository>();
+            services.AddScoped<IChecklistRepository, ChecklistRepository>();
+            services.AddScoped<IReservaRepository, ReservaRepository>();
         }
     }
 }

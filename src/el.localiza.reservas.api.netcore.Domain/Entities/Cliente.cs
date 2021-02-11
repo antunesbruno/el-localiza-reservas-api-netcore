@@ -9,18 +9,24 @@ namespace el.localiza.reservas.api.netcore.Domain.Entities
     {
         public Cliente() { }
 
-        public Cliente(Nome nome, CPF cpf, Email email)
+        public Cliente(Nome nome, CPF cpf, Email email, Telefone telefone, DateTime datanascimento, Endereco endereco)
         {
             Nome = nome;
             Cpf = cpf;
             Email = email;
+            Telefone = telefone;
+            DataNascimento = datanascimento;
+            Endereco = endereco;
             DataCriacao = DateTime.Now;
 
             AddNotifications(new Contract()
                 .Requires()
                 .IsNotNull(Nome, nameof(Nome), "Nome não pode ser nulo")
                 .IsNotNull(Cpf, nameof(Cpf), "Cpf não pode ser nulo")
-                .IsNotNull(Email, nameof(Email), "Email não pode ser nulo"));
+                .IsNotNull(Email, nameof(Email), "Email não pode ser nulo")
+                .IsNotNull(Telefone, nameof(Email), "Telefone não pode ser nulo")
+                .IsNotNull(Endereco, nameof(Email), "Endereço não pode ser nulo")
+                );
 
             if (Nome != null)
                 AddNotifications(Nome);
@@ -30,6 +36,12 @@ namespace el.localiza.reservas.api.netcore.Domain.Entities
 
             if (Email != null)
                 AddNotifications(Email);
+
+            if (Telefone != null)
+                AddNotifications(Telefone);
+
+            if (Endereco != null)
+                AddNotifications(Endereco);
         }
 
         public Nome Nome { get; private set; }
@@ -37,7 +49,7 @@ namespace el.localiza.reservas.api.netcore.Domain.Entities
         public Telefone Telefone { get; private set; }
         public Email Email { get; private set; }
         public DateTime DataNascimento { get; private set; }
-        public DateTime DataCriacao { get; private set; }
+        public DateTime DataCriacao { get; set; }
         public Endereco Endereco { get; private set; }      
     }
 }

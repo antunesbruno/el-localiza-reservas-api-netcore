@@ -1,10 +1,13 @@
 ﻿using System;
+using System.Diagnostics.CodeAnalysis;
+using System.Text.Json.Serialization;
 
 namespace el.localiza.reservas.api.netcore.Application.Models
 {
+    [ExcludeFromCodeCoverage]
     public class UsuarioModel
     {
-        public Guid UsuarioId { get; set; }
+        public string UsuarioId { get; set; }
         public string Login { get; set; }
         public string Senha { get; set; }
         public string Cpf { get; set; }

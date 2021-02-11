@@ -32,6 +32,8 @@ namespace el.localiza.reservas.api.netcore.Application
 
             if (marca.Valid)
             {
+                marca.DataCriacao = DateTime.Now;
+
                 await _marcaRepository.Incluir(marca);
                 return Result<Marca>.Ok(marca);
             }

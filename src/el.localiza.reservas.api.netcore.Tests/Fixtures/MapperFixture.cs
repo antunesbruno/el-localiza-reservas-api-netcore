@@ -13,6 +13,10 @@ namespace el.localiza.reservas.api.netcore.Tests.Fixtures
             {
                 opts.AddProfile(new ClienteMap());
                 opts.AddProfile(new UsuarioMap());
+                opts.AddProfile(new ReservaMap());
+                opts.AddProfile(new MarcaMap());
+                opts.AddProfile(new ModeloMap());
+                opts.AddProfile(new VeiculoMap());
             });
 
             Mapper = config.CreateMapper();

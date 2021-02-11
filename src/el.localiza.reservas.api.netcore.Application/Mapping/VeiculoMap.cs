@@ -27,13 +27,25 @@ namespace el.localiza.reservas.api.netcore.Application.Mapping
                 .ConstructUsing(src =>
                     new Veiculo(
                         src.Placa,
-                        src.Marca.MarcaId,
-                        src.Modelo.ModeloId,
+                        src.MarcaId,
+                        src.ModeloId,
                         src.Ano,
                         src.ValorHora,
                         (CombustivelEnum)src.CodigoCombustivel,
                         src.LimitePortaMalas,
                         (CategoriaEnum)src.CodigoCategoria));
+
+            CreateMap<VeiculoModelRequest, Veiculo>()
+               .ConstructUsing(src =>
+                   new Veiculo(
+                       src.Placa,
+                       src.MarcaId,
+                       src.ModeloId,
+                       src.Ano,
+                       src.ValorHora,
+                       (CombustivelEnum)src.CodigoCombustivel,
+                       src.LimitePortaMalas,
+                       (CategoriaEnum)src.CodigoCategoria));
         }
 
         private string ConverteCombustivelEnum(int codigo)

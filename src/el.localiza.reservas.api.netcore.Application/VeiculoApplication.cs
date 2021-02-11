@@ -39,16 +39,33 @@ namespace el.localiza.reservas.api.netcore.Application
         }
 
         /// <summary>
+        /// Obter o veiculo pelo ID
+        /// </summary>
+        /// <param name="idVeiculo"></param>
+        /// <returns></returns>
+        public async Task<Result<Veiculo>> ObterVeiculoPorIdAsync(string idVeiculo)
+        {
+            var veiculo = await _veiculoRepository.ObterVeiculoPorId(Guid.Parse(idVeiculo));
+
+            if (veiculo != null)
+                return Result<Veiculo>.Ok(veiculo);
+
+            return Result<Veiculo>.Ok(null);
+        }
+
+        /// <summary>
         /// Salva um novo Veiculo
         /// </summary>
         /// <param name="veiculoModel"></param>
         /// <returns></returns>
-        public async Task<Result<Veiculo>> SalvarAsync(VeiculoModel veiculoModel)
+        public async Task<Result<Veiculo>> SalvarAsync(VeiculoModelRequest veiculoModel)
         {
-            var veiculo = _mapper.Map<VeiculoModel, Veiculo>(veiculoModel);
+            var veiculo = _mapper.Map<VeiculoModelRequest, Veiculo>(veiculoModel);
 
             if (veiculo.Valid)
             {
+                veiculo.DataCriacao = DateTime.Now;
+
                 await _veiculoRepository.Incluir(veiculo);
                 return Result<Veiculo>.Ok(veiculo);
             }
