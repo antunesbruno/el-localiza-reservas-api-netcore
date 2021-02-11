@@ -1,8 +1,10 @@
 ﻿using Flunt.Notifications;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 
 namespace el.localiza.reservas.api.netcore.Application.Models
 {
+    [ExcludeFromCodeCoverage]
     public class ErrorModel
     {
         public List<string> Erros { get; } = new List<string>();

@@ -7,18 +7,26 @@ namespace el.localiza.reservas.api.netcore.Domain.Entities
 {
     public class Cliente : Entity, IAggregateRoot
     {
-        public Cliente(Nome nome, CPF cpf, Email email)
+        public Cliente() { }
+
+        public Cliente(Nome nome, CPF cpf, Email email, Telefone telefone, DateTime datanascimento, Endereco endereco)
         {
             Nome = nome;
             Cpf = cpf;
             Email = email;
+            Telefone = telefone;
+            DataNascimento = datanascimento;
+            Endereco = endereco;
             DataCriacao = DateTime.Now;
 
             AddNotifications(new Contract()
                 .Requires()
                 .IsNotNull(Nome, nameof(Nome), "Nome não pode ser nulo")
                 .IsNotNull(Cpf, nameof(Cpf), "Cpf não pode ser nulo")
-                .IsNotNull(Email, nameof(Email), "Email não pode ser nulo"));
+                .IsNotNull(Email, nameof(Email), "Email não pode ser nulo")
+                .IsNotNull(Telefone, nameof(Email), "Telefone não pode ser nulo")
+                .IsNotNull(Endereco, nameof(Email), "Endereço não pode ser nulo")
+                );
 
             if (Nome != null)
                 AddNotifications(Nome);
@@ -28,40 +36,20 @@ namespace el.localiza.reservas.api.netcore.Domain.Entities
 
             if (Email != null)
                 AddNotifications(Email);
-        }
 
-        public Cliente(Nome nome, CPF cpf, Email email, string segmento)
-            : this(nome, cpf, email)
-        {
-            AlterarSegmento(segmento);
+            if (Telefone != null)
+                AddNotifications(Telefone);
+
+            if (Endereco != null)
+                AddNotifications(Endereco);
         }
 
         public Nome Nome { get; private set; }
         public CPF Cpf { get; private set; }
         public Telefone Telefone { get; private set; }
         public Email Email { get; private set; }
-        public string Segmento { get; private set; }
-        public DateTime DataCriacao { get; private set; }
-
-        public void InformarOuAlterarTelefone(Telefone telefone)
-        {
-            Telefone = telefone;
-
-            if (Telefone != null)
-                AddNotifications(telefone);
-        }
-
-        public void AlterarSegmento(string segmento)
-        {
-            Segmento = segmento;
-
-            if (Segmento == null)
-                return;
-
-            AddNotifications(new Contract()
-                .Requires()
-                .HasLen(Segmento, 6, nameof(Segmento), "Segmento deve conter 6 posições")
-                .Matchs(Segmento, "^[a-zA-Z]{3}[0-9]{3}$", nameof(Segmento), "Segmento está fora do padrão de nomenclatura"));
-        }
+        public DateTime DataNascimento { get; private set; }
+        public DateTime DataCriacao { get; set; }
+        public Endereco Endereco { get; private set; }      
     }
 }

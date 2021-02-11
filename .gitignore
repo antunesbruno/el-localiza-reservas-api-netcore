@@ -338,3 +338,5 @@ ASALocalRun/
 
 # BeatPulse healthcheck temp database
 healthchecksdb
+/src/el.localiza.reservas.api.netcore.Tests/report
+/src/el.localiza.reservas.api.netcore.Tests/coverage.opencover.xml

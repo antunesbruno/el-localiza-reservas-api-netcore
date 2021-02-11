@@ -1,12 +1,18 @@
-using Microsoft.AspNetCore.Mvc;
+using AutoMapper;
 using el.localiza.reservas.api.netcore.Api.Controllers;
 using el.localiza.reservas.api.netcore.Application;
+using el.localiza.reservas.api.netcore.Application.Interfaces;
 using el.localiza.reservas.api.netcore.Application.Models;
+using el.localiza.reservas.api.netcore.Domain.Entities;
+using el.localiza.reservas.api.netcore.Domain.Repositories;
 using el.localiza.reservas.api.netcore.Tests.Fixtures;
 using el.localiza.reservas.api.netcore.Tests.Mocks;
+using Microsoft.AspNetCore.Mvc;
+using Moq;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using Xunit;
 
 namespace el.localiza.reservas.api.netcore.Tests.Controllers
@@ -15,93 +21,49 @@ namespace el.localiza.reservas.api.netcore.Tests.Controllers
     public class ClienteControllerTest
     {
         private readonly MapperFixture _mapperFixture;
+        private readonly Mock<IClienteApplication> _clienteApplication;
+        private readonly Mock<IClienteRepository> _clienteRepository;
+        private readonly Mock<IMapper> _mockMapper;
 
         public ClienteControllerTest(MapperFixture mapperFixture)
         {
             _mapperFixture = mapperFixture;
-        }
+            _mockMapper = new Mock<IMapper>();
+            _clienteApplication = new Mock<IClienteApplication>();
+            _clienteRepository = new Mock<IClienteRepository>();
+        }    
 
-        [Theory]
-        [InlineData("f8a0db6b-dabf-4f97-9b1c-8cf08b930466")]
-        [InlineData("6fdc66ad-649f-4f3c-9806-6409e8ca4e47")]
-        public void ObterDadosCliente_ClientesExistentes_Test(string id)
+        [Fact]
+        public async Task CriarClientes_Sucesso()
         {
-            var controller = CreateClienteController();
-            var result = controller.Get(Guid.Parse(id));
+            //mapping
+            _mockMapper.Setup(m => m.Map<Cliente>(It.IsAny<ClienteModel>()))
+                .Returns(FakeCliente.ObtemClienteDefault());                
 
-            Assert.IsType<OkObjectResult>(result);
-        }
+            _clienteApplication.Setup(x => x.SalvarAsync(It.IsAny<ClienteModel>()))
+                .ReturnsAsync(Result<Cliente>.Ok(FakeCliente.ObtemClienteDefault()));
+           
+            var controller = new ClienteController(_mockMapper.Object, _clienteApplication.Object);
+            var response = await controller.CriarClientes(It.IsAny<ClienteModel>());
 
-        [Theory]
-        [InlineData("42f41603-5269-4c0d-9ce2-afa8d293240b")]
-        [InlineData("3dd64d9c-aaef-4a98-9b2c-5f6d7fc28ead")]
-        public void ObterDadosCliente_ClientesInexistentes_Test(string id)
-        {
-            var controller = CreateClienteController();
-            var result = controller.Get(Guid.Parse(id));
-
-            Assert.IsType<NotFoundObjectResult>(result);
+            Assert.IsType<CreatedResult>(response);
         }
 
         [Fact]
-        public void ListarClientes_ClientesCadastrados_Test()
+        public async Task ObterClientePorId_Sucesso()
         {
-            var controller = CreateClienteController();
-            var result = controller.List();
+            //mapping
+            _mockMapper.Setup(m => m.Map<Cliente>(It.IsAny<ClienteModel>()))
+                .Returns(FakeCliente.ObtemClienteDefault());
 
-            Assert.IsType<OkObjectResult>(result);
-            
-            var objectResult = GetOkObject<IEnumerable<ClienteModel>>(result);
-            Assert.Equal(2, objectResult.Count());
+            _clienteApplication.Setup(x => x.ObterClientePorId(It.IsAny<Guid>()))
+                .ReturnsAsync(Result<Cliente>.Ok(FakeCliente.ObtemClienteDefault()));
+
+            var controller = new ClienteController(_mockMapper.Object, _clienteApplication.Object);
+            var response = await controller.ObterClientePorId(It.IsAny<Guid>());
+
+            Assert.IsType<OkObjectResult>(response);
         }
 
-        [Fact]
-        public void InserirCliente_ClienteInvalido_Test()
-        {
-            var model = new ClienteModel()
-            {
-                Nome = "João",
-                Sobrenome = "Silva"
-            };
-
-            var controller = CreateClienteController();
-            var result = controller.Post(model);
-
-            Assert.IsType<BadRequestObjectResult>(result);
-        }
-
-        [Fact]
-        public void InserirCliente_ClienteValido_Test()
-        {
-            var model = new ClienteModel()
-            {
-                Nome = "João",
-                Sobrenome = "Silva",
-                Cpf = "12345678910",
-                Ddd = 11,
-                Telefone = "999009900",
-                Email = "joao@gmail.com",
-                Segmento = "aqw187"
-            };
-
-            var controller = CreateClienteController();
-            var result = controller.Post(model);
-
-            Assert.IsType<CreatedResult>(result);
-        }
-
-        private ClienteController CreateClienteController()
-        {
-            var clienteRepository = new ClienteRepositoryMock();
-            var clienteApplication = new ClienteApplication(_mapperFixture.Mapper, clienteRepository);
-
-            return new ClienteController(_mapperFixture.Mapper, clienteApplication, clienteRepository);
-        }
-
-        private T GetOkObject<T>(IActionResult result)
-        {
-            var okObjectResult = (OkObjectResult)result;
-            return (T)okObjectResult.Value;
-        }
     }
 }

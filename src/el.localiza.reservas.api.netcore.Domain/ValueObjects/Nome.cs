@@ -5,6 +5,18 @@ namespace el.localiza.reservas.api.netcore.Domain.ValueObjects
 {
     public class Nome : ValueObject
     {
+        public Nome() { }
+
+        public Nome(string nomeUsuario)
+        {
+            PrimeiroNome = nomeUsuario;
+
+            AddNotifications(new Contract()
+                .Requires()
+                .IsNotNullOrWhiteSpace(PrimeiroNome, nameof(Nome.PrimeiroNome), "Primeiro nome não pode ser nulo ou branco")
+                .HasMinLen(PrimeiroNome, 2, nameof(Nome.PrimeiroNome), "Primeiro nome deve conter pelo menos 2 caracteres"));
+        }
+
         public Nome(string primeiroNome, string sobrenome)
         {
             PrimeiroNome = primeiroNome;
